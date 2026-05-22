@@ -285,6 +285,9 @@ Trust your unit.</p>
   <p class="textBlock">DETONATION</p>
 </div>
 
+<!-- Ending music file. Put ending.mp3 in the same GitHub folder as index.html -->
+<audio id="endingMusic" src="ending.mp3" preload="auto"></audio>
+
 <script>
   const pins = {
     1: "1986",
@@ -772,6 +775,41 @@ You are cleared for extraction.`;
     document.getElementById("endingText").innerText = selectedEnding;
 
     showScreen("endingPage");
+
+    playEndingMusic();
+  }
+
+  function playEndingMusic() {
+    const music = document.getElementById("endingMusic");
+
+    if (!music) {
+      return;
+    }
+
+    music.pause();
+    music.currentTime = 0;
+    music.volume = 0;
+
+    const playPromise = music.play();
+
+    if (playPromise !== undefined) {
+      playPromise.then(function() {
+        let volumeLevel = 0;
+
+        const fadeIn = setInterval(function() {
+          volumeLevel += 0.05;
+
+          if (volumeLevel >= 1) {
+            volumeLevel = 1;
+            clearInterval(fadeIn);
+          }
+
+          music.volume = volumeLevel;
+        }, 200);
+      }).catch(function() {
+        alert("Tap REVEAL ENDING again if music does not start.");
+      });
+    }
   }
 </script>
 
