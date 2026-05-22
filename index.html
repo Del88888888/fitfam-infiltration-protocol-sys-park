@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FitFam Infiltration Protocol</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 30px;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0b0b0b;
+      color: #f5f5f5;
+      text-align: center;
+      font-size: 42px;
+    }
+
+    h1 {
+      font-size: 64px;
+      color: #ffd200;
+    }
+
+    h2 {
+      font-size: 52px;
+      color: #ffd200;
+    }
+
+    .panel {
+      border: 3px solid #444;
+      padding: 30px;
+      margin: 30px auto;
+      max-width: 900px;
+      background: #111;
+    }
+
+    button {
+      font-size: 42px;
+      padding: 20px 40px;
+      margin-top: 20px;
+      background: #ffd200;
+      color: #000;
+      border: none;
+      cursor: pointer;
+    }
+
+    input {
+      font-size: 42px;
+      padding: 20px;
+      width: 80%;
+      max-width: 500px;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #cornerLogo {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 90px;
+      border-radius: 50%;
+      border: 3px solid #ffd200;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .textBlock {
+      white-space: pre-line;
+      line-height: normal;
+    }
+
+    .sectionTitle {
+      color: #ffd200;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .missionImage {
+      width: 100%;
+      max-width: 760px;
+      margin: 20px auto;
+      border: 3px solid #444;
+      display: block;
+    }
+
+    .mediaTitle {
+      color: #ffd200;
+      font-weight: bold;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    #timer {
+      font-size: 90px;
+      color: #ffd200;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+  </style>
+
+  <script>
+    function showScreen(screenId) {
+      document.querySelectorAll('.panel').forEach(function(panel) {
+        panel.classList.add('hidden');
+      });
+
+      document.getElementById(screenId).classList.remove('hidden');
+      window.scrollTo(0, 0);
+    }
+  </script>
+</head>
+
+<body>
+
+<img src="my-photo.jpg" id="cornerLogo">
+
+<h1>FITFAM INFILTRATION PROTOCOL</h1>
+
+<div id="briefing" class="panel">
+  <h2>HQ BRIEFING</h2>
+
+  <p class="textBlock">ATTENTION.
+
+You are a Special Forces unit deployed into an active threat zone.
+
+A terrorist organisation has planted a nuclear device somewhere within this area.
+
+The exact location is unknown.
+
+Your mission:
+
+Infiltrate the zone.
+Recover intel.
+Locate the device.
+And prevent detonation.
+
+Trust nothing.
+
+Move.</p>
+
+  <button onclick="showScreen('preMission')">BEGIN MISSION</button>
+</div>
+
+<div id="preMission" class="panel hidden">
+  <h2>INITIAL DIRECTIVE:</h2>
+
+  <p class="textBlock">Complete one full lap around the park.
+
+Return to HQ for mission authorisation.</p>
+
+  <button onclick="showScreen('pin1')">RETURN TO HQ</button>
+</div>
+
+<div id="pin1" class="panel hidden">
+  <h2>MISSION 1</h2>
+  <input id="pin1Input" placeholder="Access Code">
+  <br>
+  <button onclick="unlockPin(1)">AUTHORISE</button>
+</div>
+
+<div id="pin2" class="panel hidden">
+  <h2>MISSION 2</h2>
+  <input id="pin2Input" placeholder="Access Code">
+  <br>
+  <button onclick="unlockPin(2)">AUTHORISE</button>
+</div>
+
+<div id="pin3" class="panel hidden">
+  <h2>MISSION 3</h2>
+  <input id="pin3Input" placeholder="Access Code">
+  <br>
+  <button onclick="unlockPin(3)">AUTHORISE</button>
+</div>
+
+<div id="mission" class="panel hidden">
+  <h2 id="missionTitle"></h2>
+  <p id="missionContent" class="textBlock"></p>
+  <div id="missionMedia"></div>
+  <button onclick="completeMission()">RETURN TO HQ</button>
+</div>
+
+<div id="interception" class="panel hidden">
+  <h2>⚠️ INTERCEPTION ALERT ⚠️</h2>
+
+  <p class="textBlock">All units — listen carefully.
+
+You have been double crossed.
+
+The intel you received was false.
+
+You have been led directly into enemy tracking.
+
+Your position is compromised.
+
+Enemy units are closing in.
+
+DEFEND.
+DISENGAGE.
+MOVE.
+
+<span class="sectionTitle">TASK</span>
+Run 1 full lap as fast as possible
+No recording required</p>
+
+  <button onclick="showScreen('pin4')">RETURN TO HQ</button>
+</div>
+
+<div id="pin4" class="panel hidden">
+  <h2>FINAL CLEARANCE</h2>
+  <input id="pin4Input" placeholder="Access Code">
+  <br>
+  <button onclick="unlockPin(4)">AUTHORISE DEFUSAL</button>
+</div>
+
+<div id="finalReveal" class="panel hidden">
+  <h2>FINAL INTEL:</h2>
+
+  <p class="textBlock">Everything you received…
+
+was compromised.
+
+The agent.
+The intel.
+The Professor.
+
+All part of the same deception.
+
+You were being led.
+
+But now…
+
+The device is active.
+
+DEFUSAL PHASE
+
+You have 2 minutes to stop the detonation.</p>
+
+  <button onclick="startDefusal()">BEGIN DEFUSAL</button>
+</div>
+
+<div id="defusal" class="panel hidden">
+  <h2>FINAL AUTHENTICATION</h2>
+
+  <div id="timer">02:00</div>
+
+  <p class="textBlock">FINAL AUTHENTICATION REQUIRED.
+
+Think carefully.
+
+What brought you here today?
+Who brought this unit together?
+
+Who do you trust?</p>
+
+  <input id="finalAnswerInput">
+  <br>
+  <button onclick="checkFinalAnswer()">AUTHENTICATE</button>
+
+  <p id="hint" class="textBlock hidden">ACCESS DENIED.
+
+System override initiated…
+
+Hint:
+
+The answer begins with “F”.
+
+Trust your unit.</p>
+</div>
+
+<div id="success" class="panel hidden">
+  <h2>MISSION COMPLETE</h2>
+  <p id="successText" class="textBlock"></p>
+  <button onclick="revealEnding()">REVEAL ENDING</button>
+</div>
+
+<div id="endingPage" class="panel hidden">
+  <h2>ENDING</h2>
+  <p id="endingText" class="textBlock"></p>
+</div>
+
+<div id="failure" class="panel hidden">
+  <h2>MISSION FAILED</h2>
+  <p class="textBlock">DETONATION</p>
+</div>
+
+<script>
+  const pins = {
+    1: "1986",
+    2: "2388",
+    3: "3896",
+    4: "4832"
+  };
+
+  const missions = [
+    {
+      code: "A",
+      map: "mapA.jpg",
+      photo: "imageA.jpg",
+      content: `INTEL:
+
+One of our embedded agents reports that the terrorist leader has evacuated the area.
+
+Before extraction, the agent left behind intel.
+
+This intel contains an entry point into their network.
+
+Recover the intel.
+
+<span class="sectionTitle">TASK</span>
+Run to the location (see map and photo)
+
+Exercise
+Partner Push-Up High Five × 30 EACH
+
+<span class="sectionTitle">VIDEO INSTRUCTIONS</span>
+Record a 5–10 second video of the FULL TEAM performing the exercise at the location.
+
+• All team members must be visible
+• All members must be performing the exercise
+• The location must be clearly visible
+
+Upload with Team Number clearly labelled.
+
+Return
+Run back to HQ → receive next PIN`
+    },
+    {
+      code: "B",
+      map: "mapB.jpg",
+      photo: "imageB.jpg",
+      content: `STEALTH DIRECTIVE:
+
+Intel indicates a low-visibility access route nearby.
+
+You are entering enemy-controlled territory.
+
+Movement must remain undetected.
+
+Proceed with stealth.
+
+Noise will compromise your position.
+
+<span class="sectionTitle">TASK (CRITICAL RULE)</span>
+Bear crawl ALL THE WAY to the location using the route shown on the map
+No running or normal walking allowed
+
+Exercise
+60 Superman pulses at location
+
+<span class="sectionTitle">VIDEO INSTRUCTIONS</span>
+Record a 5–10 second video of the FULL TEAM performing the exercise at the location.
+
+• All members must be visible
+• Exercise must be clearly shown
+• Location must be identifiable
+
+Upload with Team Number clearly labelled
+
+Return
+Return to HQ → receive next PIN`
+    },
+    {
+      code: "C",
+      map: "mapC.jpg",
+      photo: "imageC.jpg",
+      content: `UPDATE:
+
+We have located a high-value target.
+
+Codename: THE PROFESSOR.
+
+This individual is directly linked to the nuclear device.
+
+Move immediately.
+
+Apprehend the target and secure the area.
+
+Neutralise resistance.
+
+<span class="sectionTitle">TASK</span>
+Run to the location
+
+Exercise
+Partner Burpee High Five × 20 EACH
+
+<span class="sectionTitle">PHOTO INSTRUCTIONS</span>
+One team member must act as THE PROFESSOR.
+
+The rest of the team must simulate capturing the target.
+
+Take ONE photo at the location showing:
+• THE PROFESSOR
+• FULL TEAM
+• Capture scenario
+
+All team members must be visible
+
+Upload with Team Number clearly labelled
+
+Return
+Run back to HQ → receive next PIN`
+    }
+  ];
+
+  const endings = [
+`CODE ACCEPTED.
+
+DEVICE DISARMED.
+
+DETONATION ABORTED.
+
+The world was saved.
+
+But no one will ever know your names.
+
+Your actions were buried deep within classified records — known only to a select few.
+
+The team was awarded the highest honour possible.
+
+No ceremony.
+
+No headlines.
+
+Just recognition… where it mattered.
+
+The leader reached out personally.
+
+No orders.
+
+No pressure.
+
+Just a quiet conversation.
+
+One of respect.
+
+One of closure.
+
+For some, this was just another mission.
+
+For others… the beginning of something new.
+
+As for you…
+
+You’ve had enough.
+
+The noise.
+
+The danger.
+
+The constant edge.
+
+A quieter life now awaits.
+
+And perhaps…
+
+something closer to home.
+
+With time on your side…
+
+you begin to consider a different kind of mission.
+
+One that builds.
+
+One that connects.
+
+Maybe…
+
+Leading at FitFam.`,
+
+`CODE ACCEPTED.
+
+DEVICE DISARMED.
+
+DETONATION ABORTED.
+
+The world was saved.
+
+But no one will ever know your names.
+
+Your actions remain classified.
+
+Hidden.
+
+Protected.
+
+The team received the highest honour possible.
+
+Recognised by those who understand the cost of what you’ve done.
+
+The leader stood before you.
+
+Not as a commander.
+
+But as someone who trusted you.
+
+His words were simple.
+
+Direct.
+
+Earned.
+
+Time passed.
+
+Recovery came.
+
+Normal life resumed…
+
+or something close to it.
+
+Then one day.
+
+During a FitFam session.
+
+Every phone vibrated.
+
+At the same time.
+
+A message.
+
+Encrypted.
+
+Urgent.
+
+After decryption…
+
+one line appeared.
+
+TARGET IDENTIFIED.
+
+The leader of the terrorist network.
+
+Located.
+
+Exposed.
+
+Vulnerable.
+
+You look around.
+
+No words needed.
+
+Gear up.
+
+This isn’t over yet.`,
+
+`CODE ACCEPTED.
+
+DEVICE DISARMED.
+
+…
+
+A loud BANG.
+
+The world snaps.
+
+You wake up.
+
+Not in the field.
+
+Not at HQ.
+
+In the back seat of a taxi.
+
+The driver hasn’t noticed.
+
+Outside…
+
+traffic has slowed.
+
+An accident.
+
+Opposite lane.
+
+That sound…
+
+Your phone vibrates.
+
+A message.
+
+Encrypted.
+
+You unlock it.
+
+The leader.
+
+URGENT MISSION.
+
+Intel confirms:
+
+A terrorist leader has planted a nuclear device in this vicinity.
+
+Time remaining:
+
+10 hours.
+
+Locate the device.
+
+Defuse it.
+
+Prevent detonation.
+
+…
+
+You pause.
+
+A strange feeling.
+
+Familiar.
+
+Too familiar.
+
+You smile.
+
+You’re ready.
+
+Let’s go again.`
+  ];
+
+  let missionOrder = shuffleArray([...missions]);
+  let currentMissionNumber = 0;
+  let secondsRemaining = 120;
+  let timerInterval = null;
+  let finalAttempts = 0;
+  let selectedEnding = "";
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const randomIndex = Math.floor(Math.random() * (i + 1));
+      const temporaryValue = array[i];
+
+      array[i] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
+
+  function unlockPin(pinNumber) {
+    const input = document.getElementById("pin" + pinNumber + "Input");
+
+    if (input.value.trim() === pins[pinNumber]) {
+      if (pinNumber === 4) {
+        showScreen("finalReveal");
+      } else {
+        launchMission(pinNumber);
+      }
+    } else {
+      alert("ACCESS DENIED");
+    }
+  }
+
+  function launchMission(missionNumber) {
+    currentMissionNumber = missionNumber;
+
+    const mission = missionOrder[missionNumber - 1];
+
+    document.getElementById("missionTitle").innerText = "MISSION " + missionNumber + " – ASSIGNMENT";
+    document.getElementById("missionContent").innerHTML = mission.content;
+
+    document.getElementById("missionMedia").innerHTML =
+      '<p class="mediaTitle">Map</p>' +
+      '<img src="' + mission.map + '" class="missionImage" alt="Map Image ' + mission.code + '">' +
+      '<p class="mediaTitle">Location Photo</p>' +
+      '<img src="' + mission.photo + '" class="missionImage" alt="Location Photo ' + mission.code + '">';
+
+    showScreen("mission");
+  }
+
+  function completeMission() {
+    if (currentMissionNumber === 1) {
+      showScreen("pin2");
+    } else if (currentMissionNumber === 2) {
+      showScreen("pin3");
+    } else if (currentMissionNumber === 3) {
+      showScreen("interception");
+    }
+  }
+
+  function startDefusal() {
+    secondsRemaining = 120;
+    finalAttempts = 0;
+    selectedEnding = "";
+
+    document.getElementById("hint").classList.add("hidden");
+    document.getElementById("finalAnswerInput").value = "";
+    updateTimerDisplay();
+
+    showScreen("defusal");
+
+    timerInterval = setInterval(function() {
+      secondsRemaining--;
+
+      if (secondsRemaining <= 0) {
+        secondsRemaining = 0;
+        updateTimerDisplay();
+
+        clearInterval(timerInterval);
+        timerInterval = null;
+
+        showScreen("failure");
+        return;
+      }
+
+      updateTimerDisplay();
+    }, 1000);
+  }
+
+  function updateTimerDisplay() {
+    const minutes = Math.floor(secondsRemaining / 60);
+    const seconds = secondsRemaining % 60;
+
+    document.getElementById("timer").innerText =
+      String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0");
+  }
+
+  function checkFinalAnswer() {
+    const answer = document.getElementById("finalAnswerInput").value.trim().toLowerCase();
+
+    if (answer === "fitfam") {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+
+      showSuccess();
+    } else {
+      finalAttempts++;
+
+      if (finalAttempts >= 4) {
+        document.getElementById("hint").classList.remove("hidden");
+      } else {
+        alert("ACCESS DENIED");
+      }
+    }
+  }
+
+  function showSuccess() {
+    const successIntro = `CODE ACCEPTED.
+
+DEVICE DISARMED.
+
+DETONATION ABORTED.
+
+FINAL CLOSE
+
+You were misled.
+
+You were tested.
+
+You adapted.
+
+You held the line.
+
+Mission complete.
+
+You are cleared for extraction.`;
+
+    selectedEnding = endings[Math.floor(Math.random() * endings.length)];
+
+    document.getElementById("successText").innerText = successIntro;
+
+    showScreen("success");
+  }
+
+  function revealEnding() {
+    if (!selectedEnding) {
+      selectedEnding = endings[Math.floor(Math.random() * endings.length)];
+    }
+
+    document.getElementById("endingText").innerText = selectedEnding;
+
+    showScreen("endingPage");
+  }
+</script>
+
+</body>
+</html>
